@@ -61,32 +61,39 @@ const deleteUser = async (req, res) => {
     })
 }
 
-// const login = async (req, res) => {
-//     let dados = req.body
+const login = async (req, res) => {
+    let dados = req.body
 
-//     let user = await usersDb.findOne(
-//         {
-//             where: {
-//                 email: dados.email,
-//                 password: MD5(dados.password).toString();
-//             }
-//         }
-//     ).then(() => {
-//         console.log("tô aqui");
-//         return res.json({
-//             erro: false,
-//             mensagem: "Login Efetuado"
-//         })
-//     }).catch(() => {
-//         console.log("tô aqui 2");
+    dados.password = MD5(dados.password).toString();
 
-//         return res.status(400).json({
-//             erro: true,
-//             mensagem: "Erro no login de Usuário!!! Error: " + password
-//         })
-        
-//     })
-// }
+    let user = await usersDb.findOne(
+        {
+            where: {
+                email: dados.email
+            }
+        }
+    )
+
+    if (!user) {
+        return res.status(400).json({
+            erro: true,
+            mensagem: "Erro no login de Usuário!!! Error: " +  dados.password
+        })
+    }
+
+
+     if (dados.password == user.password){
+        console.log("Deu bom");
+        return res.json({
+            erro: false,
+            mensagem: "Login Efetuado"
+        })
+     }else{
+        return res.json({
+            message: "Email ou senha incorreto(s)"
+        })
+     }
+}
 
 module.exports = {
     createUser,
