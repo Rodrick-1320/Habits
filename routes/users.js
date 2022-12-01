@@ -2,6 +2,7 @@ const { usersDb } = require('../models/users');
 var MD5 = require("crypto-js/md5");
 const { Op } = require('sequelize');
 
+// Create
 var createUser = async (req, res) => {
     var dados = req.body;
 
@@ -21,6 +22,8 @@ var createUser = async (req, res) => {
         })
 }
 
+
+// Read Users ( Retorna todos os usuários )
 const getAllUser = async (req, res) => {
     const result = await usersDb.findAll({
         attributes: ['id', 'name', 'email'],

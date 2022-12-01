@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
-const db = require('./db')
+const db = require('./db');
+const { usersDb } = require('./users');
 
 const habitsDb = db.define('habits', {
     id: {
@@ -26,8 +27,9 @@ const habitsDb = db.define('habits', {
     }
 })
 
+habitsDb.belongsTo(usersDb);
 
-// usersDb.sync();
+// habitsDb.sync();
 
 module.exports = {
     habitsDb

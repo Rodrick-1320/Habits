@@ -26,6 +26,8 @@ const usersDb = db.define('users', {
     }
 })
 
+// usersDb.sync();
+
 module.exports = {
     usersDb
 }

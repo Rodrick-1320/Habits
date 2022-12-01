@@ -14,7 +14,7 @@ app.get('/', (req, res) => {
 })
 
 app.post('/habits/create' , createHabit)
-app.get('/habits/read', readHabits)
+app.get('/habits/list', readHabits)
 app.delete('/habits/delete', deleteHabits)
 app.put('/habits/update' , updateHabits)
 

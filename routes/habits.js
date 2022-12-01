@@ -1,4 +1,5 @@
 const { habitsDb } = require('../models/habits');
+const { usersDb } = require('../models/users');
 let { habits } = require("../store")
 
 const createHabit = async (req, res) => {
@@ -20,10 +21,36 @@ const createHabit = async (req, res) => {
     })
 }
 
-const readHabits = (req, res) => {
+const readHabits =  async(req, res) => {
+
+    var arr = [1, 2, 3, 4, 5]
+
+    var dados = await habitsDb.findAll({
+        include:[
+            usersDb
+        ]
+    })
+
+    // let arroz = arr.map((item) => {
+    //     return item * 2
+    // })
+
+    // console.log(arroz);
+
+    let dadosJson = dados.map((item) =>{
+        return {
+            title: item.title,
+            question: item.question,
+            createdBy: item.user.name
+        }
+    })
+
+    console.log(dados);
+
+    
     res.json({
         status: 200,
-        habits: habits
+        dadosJson
     })
 } 
 
